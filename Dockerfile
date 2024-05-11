@@ -11,6 +11,6 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER requirements.txt /tmp/requirements.txt
 RUN python3 -m pip install --no-cache-dir -r /tmp/requirements.txt
 
 # copy over the entry point
-COPY --chown=$MAMBA_USER:$MAMBA_USER entrypoint.sh /usr/local/bin/
-
-CMD [ "entrypoint.sh" ]
+COPY --chown=$MAMBA_USER:$MAMBA_USER entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
