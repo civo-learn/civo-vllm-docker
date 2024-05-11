@@ -8,7 +8,7 @@ This project provides a lightweight vllm install using the [civo-python-cuda-ima
 ## Images
 | Name                             | Description                                | Image Size | Original Image Size | Size Reduction |
 |----------------------------------|--------------------------------------------|------------|-------------------|----------------|
-| `civo-python-cuda12`             | tbc                                        | TBD        | TBD               | TBD            |
+| `civo-vllm-docker  `             | tbc                                        | TBD        | 3.87 GB           | TBD            |
 
 
 ## TODO: 
