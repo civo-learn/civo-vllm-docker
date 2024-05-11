@@ -1,4 +1,4 @@
-# Civo Python Cuda Images
+# Civo VLLM Docker Image
 
 ## Introduction
 
