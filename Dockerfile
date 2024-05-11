@@ -10,6 +10,8 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER requirements.txt /tmp/requirements.txt
 # install the python deps
 RUN python3 -m pip install --no-cache-dir -r /tmp/requirements.txt
 
+CMD ["python3 --version"]
+
 # copy over the entry point
 # COPY --chown=$MAMBA_USER:$MAMBA_USER entrypoint.sh /usr/local/bin/
 
