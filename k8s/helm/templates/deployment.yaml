@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MODEL
+          value: "{{ .Values.env.MODEL }}"
+        - name: HF_TOKEN
+          value: "{{ .Values.env.HF_TOKEN }}"
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+        readinessProbe:
+          httpGet:
+            path: /docs
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        resources:
+          limits:
+            nvidia.com/gpu: "{{ index .Values.resources.limits "nvidia.com/gpu" }}"
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: "{{ .Values.volumes.dshm.medium }}"
+          sizeLimit: "{{ .Values.volumes.dshm.sizeLimit }}"

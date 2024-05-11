@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/civo-learn/civo-vllm-docker
+  pullPolicy: Always
+  tag: "latest"
+
+# model variables
+env:
+  MODEL: "meta-llama/Meta-Llama-3-8B"
+  HF_TOKEN: "YOUR_HUGGING_FACE_TOKEN"
+
+# exposed by 
+service:
+  type: NodePort
+  port: 8080
+
+# hardware resources
+resources:
+  limits:
+    nvidia.com/gpu: "1"
+
+# model cache size
+volumes:
+  dshm:
+    medium: Memory
+    sizeLimit: "11Gi"
