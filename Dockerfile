@@ -14,4 +14,4 @@ RUN python3 -m pip install --no-cache-dir -r /tmp/requirements.txt
 COPY --chown=$MAMBA_USER:$MAMBA_USER entrypoint.sh /usr/local/bin/
 
 
-CMD [ "entrypoint.sh" ]
+CMD ["python3", "-m", "vllm.entrypoints.openai.api_server", "--tensor-parallel-size", "1", "--worker-use-ray", "--host", "0.0.0.0", "--port", "8080", "--model", "meta-llama/Meta-Llama-3-8B", "--served-model-name", "meta-llama/Meta-Llama-3-8B"]
