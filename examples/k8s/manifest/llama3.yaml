@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-release
+spec:
+  replicas: 1  # Adjusted replica count
+  selector:
+    matchLabels:
+      app: my-release
+  template:
+    metadata:
+      labels:
+        app: my-release
+    spec:
+      containers:
+      - name: app
+        image: "ghcr.io/civo-learn/civo-vllm-docker:latest"  # Updated image repository and tag
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MODEL
+          value: "meta-llama/Meta-Llama-3-8B"  # Updated model
+        - name: HF_TOKEN
+          value: "YOUR_HUGGING_FACE_TOKEN"  # Updated token
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+        readinessProbe:
+          httpGet:
+            path: /docs
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        resources:
+          limits:
+            nvidia.com/gpu: "1"  # Confirmed GPU limit
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory  # Confirmed medium
+          sizeLimit: "11Gi"  # Updated size limit
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-release
+spec:
+  type: NodePort  # Updated service type to NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: my-release
