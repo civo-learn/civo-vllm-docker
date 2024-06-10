@@ -10,6 +10,9 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER requirements.txt /tmp/requirements.txt
 # install the python deps
 RUN python3 -m pip install --no-cache-dir -r /tmp/requirements.txt
 
+# copy over the chat templates
+COPY chat-templates /chat-templates
+
 # copy over the entry point
 COPY --chown=$MAMBA_USER:$MAMBA_USER entrypoint.sh /
 RUN chmod +x /entrypoint.sh

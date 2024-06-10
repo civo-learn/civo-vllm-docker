@@ -52,6 +52,10 @@ if [[ -n "$MAX_MODEL_LEN" ]]; then
     additional_args="$additional_args --max-model-len $MAX_MODEL_LEN"
 fi
 
+if [[ ! -z "${CHAT_TEMPLATE}" ]]; then
+    additional_args="${additional_args} --chat-template ${CHAT_TEMPLATE}"
+fi
+
 # Start the API server with the specified or default settings
 python3 -m vllm.entrypoints.openai.api_server \
     --tensor-parallel-size $NUM_GPU \
