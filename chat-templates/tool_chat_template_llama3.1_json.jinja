@@ -8,11 +8,7 @@
     {%- set tools = none %}
 {%- endif %}
 {%- if not date_string is defined %}
-    {%- if strftime_now is defined %}
-        {%- set date_string = strftime_now("%d %b %Y") %}
-    {%- else %}
-        {%- set date_string = "19 Nov 2024" %}
-    {%- endif %}
+    {%- set date_string = "24 Aug 2024" %}
 {%- endif %}
 {{- bos_token }}
 {{- "<|start_header_id|>system<|end_header_id|>\n\n" }}
