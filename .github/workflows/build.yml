@@ -7,7 +7,7 @@ on:
     paths:
       - 'Dockerfile'
       - 'requirements.txt'  # Ensures the workflow runs if there are changes to env.yaml
-      - '/chat-templates/'
+      - 'chat-templates/**'
 
 
 jobs:
