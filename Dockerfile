@@ -1,6 +1,9 @@
 # Ubuntu 22.04 and Cuda 12.4.1
 FROM ghcr.io/civo-learn/civo-python-cuda12:latest
 
+# Disable NV Sharp Lib
+NCCL_NVLS_ENABLE=0
+
 # activate micromamba env
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
