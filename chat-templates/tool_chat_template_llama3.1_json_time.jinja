@@ -17,7 +17,7 @@
 {{- bos_token }}
 {{- "<|start_header_id|>system<|end_header_id|>\n\n" }}
 {#{- "Environment: ipython\n" }#}
-{{- "Cutting Knowledge Date: December 2023\n" }}
+{{- "Knowledge Cutoff Date: December 2023\n" }}
 {{- "Today's Date: " + date_string}}
 
 {%- if tools is defined and tools is iterable %}
@@ -31,8 +31,11 @@
     {{- "question - you must summarize, explain, or otherwise use the information to answer the user's query. " }}
     {{- "DO NOT SAY ANYTHING ABOUT IT BEING A RESPONSE, or talk about tools - just use the information to answer the user.\n\n" }}
 
-    {{- 'If you decide to call a tool, do not say that you\'re calling a tool - just respond in the following JSON format: {"name": function name, "parameters": dictionary of argument name and its value} ' }}
+    {{- 'If you decide to call a tool, DO NOT say that you\'re calling a tool or make reference to a tool call  - just respond in the following JSON format: {"name": function name, "parameters": dictionary of argument name and its value} ' }}
+    {{- "If the user requests knowledge which is after the Knowledge cutoff date, use tools can retrieve the information for you." }}
     {{- "without saying anything else. Don't tell the user you're calling a tool." }}
+    {{- "DO NOT put text BEFORE or AFTER the tool call." }}
+    {{- "Do not explain or discuss what the tool call is doing or give any context to why you need to make a tool call or what it is performing." }}
     {{- "Do not use variables. The following tools are provided to you." }}
     {%- for tool in tools %}
         {{- tool | tojson(indent=4) }}
