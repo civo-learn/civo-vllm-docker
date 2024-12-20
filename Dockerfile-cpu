@@ -11,6 +11,7 @@ COPY requirements-cpu.txt /tmp/requirements-cpu.txt
 RUN micromamba install -y -n base python=3.11
 
 # install the python deps
+RUN pip install wheel packaging ninja "setuptools>=49.4.0" numpy
 RUN python -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
 # copy over the chat templates
