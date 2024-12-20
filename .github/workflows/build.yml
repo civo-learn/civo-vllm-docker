@@ -6,7 +6,9 @@ on:
       - main
     paths:
       - 'Dockerfile'
+      - 'Dockerfile-cpu'
       - 'requirements.txt'  # Ensures the workflow runs if there are changes to env.yaml
+      - 'requirements-cpu.txt'  # Ensures the workflow runs if there are changes to env.yaml
       - 'chat-templates/**'
 
 
