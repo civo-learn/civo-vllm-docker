@@ -8,14 +8,20 @@ set -x
 # Ensure the script exits on any error
 set -e
 
-# Check if 'nvidia-smi' is available
-if ! command -v nvidia-smi &>/dev/null; then
-    echo "Error: 'nvidia-smi' could not be found. Ensure NVIDIA drivers are installed."
-    exit 1
+# Attempt to detect the number of GPUs
+if command -v nvidia-smi &>/dev/null; then
+    export NUM_GPU=$(nvidia-smi -L | wc -l)
+else
+    export NUM_GPU=0
 fi
 
-# Retrieve the number of GPUs available
-export NUM_GPU=$(nvidia-smi -L | wc -l)
+# If there should be GPUs, ensure 'nvidia-smi' is available
+if [ "$NUM_GPU" -gt 0 ]; then
+    if ! command -v nvidia-smi &>/dev/null; then
+        echo "Error: 'nvidia-smi' could not be found. Ensure NVIDIA drivers are installed."
+        exit 1
+    fi
+fi
 
 # Define the model to be served, default to $MODEL if not specified
 export SERVED_MODEL_NAME=${SERVED_MODEL_NAME:-$MODEL}
@@ -64,3 +70,4 @@ python3 -m vllm.entrypoints.openai.api_server \
     --port "$PORT" \
     --model "$MODEL" \
     --served-model-name "$SERVED_MODEL_NAME" $additional_args
+
