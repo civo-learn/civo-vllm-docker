@@ -5,7 +5,7 @@ FROM mambaorg/micromamba:ubuntu24.10
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # pypi dependacies
-COPY --chown=$MAMBA_USER:$MAMBA_USER requirements-cpu.txt /tmp/requirements-cpu.txt
+COPY requirements-cpu.txt /tmp/requirements-cpu.txt
 
 # install the python deps
 RUN python3 -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt
