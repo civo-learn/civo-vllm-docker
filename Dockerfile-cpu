@@ -8,7 +8,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 COPY requirements-cpu.txt /tmp/requirements-cpu.txt
 
 # install the python deps
-RUN python3 -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt
 
 # copy over the chat templates
 COPY chat-templates /chat-templates
