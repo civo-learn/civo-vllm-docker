@@ -10,7 +10,7 @@ COPY requirements-cpu.txt /tmp/requirements-cpu.txt
 RUN micromamba install -y -n base python=3.11
 
 # install the python deps
-RUN python -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
 # copy over the chat templates
 COPY chat-templates /chat-templates
