@@ -7,6 +7,8 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 # pypi dependacies
 COPY requirements-cpu.txt /tmp/requirements-cpu.txt
 
+RUN micromamba install -y -n base python=3.11
+
 # install the python deps
 RUN python -m pip install --no-cache-dir -r /tmp/requirements-cpu.txt
 
