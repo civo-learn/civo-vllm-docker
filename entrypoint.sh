@@ -65,6 +65,7 @@ fi
 # Start the API server with the specified or default settings
 python3 -m vllm.entrypoints.openai.api_server \
     --tensor-parallel-size $NUM_GPU \
+    --worker-use-ray
     --host 0.0.0.0 \
     --port "$PORT" \
     --model "$MODEL" \
