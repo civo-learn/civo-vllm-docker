@@ -1,7 +1,7 @@
 # Ubuntu 22.04 and Cuda 12.4.1
 FROM ghcr.io/civo-learn/civo-python-cuda12:latest
 
-# activate micromamba env
+# activate micromamba env.
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # pypi dependacies
