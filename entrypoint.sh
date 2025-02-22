@@ -66,7 +66,6 @@ fi
 python3 -m vllm.entrypoints.openai.api_server \
     --tensor-parallel-size $NUM_GPU \
     --host 0.0.0.0 \
-    --worker-use-ray \
     --port "$PORT" \
     --model "$MODEL" \
     --served-model-name "$SERVED_MODEL_NAME" $additional_args
